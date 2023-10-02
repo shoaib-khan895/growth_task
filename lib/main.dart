@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Growth Task'),
     );
   }
 }
@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
+      print('khansh->Main->setState');
       _counter++;
     });
   }
@@ -73,39 +74,59 @@ class _MyHomePageState extends State<MyHomePage> {
     print('khansh->Main->build');
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/7YQo.gif"),
+                fit: BoxFit.cover,
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const PageFirst()));
+                        },
+                        child: const Text('PageFirst')),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const PageSecond()));
+                        },
+                        child: const Text('PageSecond')),
+                  )
+                ],
+              ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const PageFirst()));
-                },
-                child: const Text('PageFirst')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const PageSecond()));
-                },
-                child: const Text('PageSecond'))
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8,0,0,8),
+            child: Align(alignment: Alignment.bottomLeft,
+                child: ElevatedButton(onPressed: () {}, child: SizedBox(width: 20,height:10 ,))),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: Text(
+          '$_counter',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
       ),
     );
   }
