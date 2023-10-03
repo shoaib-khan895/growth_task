@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'first_page.dart';
+import 'second_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -36,6 +39,20 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       print('khansh->Main->setState');
       _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      print('khansh->Main->setState');
+      _counter--;
+    });
+  }
+
+  void _resetCounter() {
+    setState(() {
+      print('khansh->Main->setState');
+      _counter = 0;
     });
   }
 
@@ -78,174 +95,74 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/7YQo.gif"),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Center(
-              child: Column(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2,
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PageFirst()));
+                },
+                child: const Text('PageFirst')),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2,
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PageSecond()));
+                },
+                child: const Text('PageSecond')),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const PageFirst()));
-                        },
-                        child: const Text('PageFirst')),
+                children: [
+                  FloatingActionButton.small(
+                    heroTag: '1',
+                    onPressed: _incrementCounter,
+                    child: const Icon(Icons.keyboard_double_arrow_up_sharp),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const PageSecond()));
-                        },
-                        child: const Text('PageSecond')),
-                  )
                 ],
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8,0,0,8),
-            child: Align(alignment: Alignment.bottomLeft,
-                child: ElevatedButton(onPressed: () {}, child: SizedBox(width: 20,height:10 ,))),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FloatingActionButton.small(
+                    heroTag: '2',
+                    onPressed: _resetCounter,
+                    child: const Icon(Icons.restart_alt),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FloatingActionButton.small(
+                    heroTag: '3',
+                    onPressed: _decrementCounter,
+                    child: const Icon(Icons.keyboard_double_arrow_down_sharp),
+                  ),
+                ],
+              ),
+            ],
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        heroTag: '4',
+        splashColor: Colors.transparent,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        onPressed: () {},
         tooltip: 'Increment',
         child: Text(
           '$_counter',
           style: Theme.of(context).textTheme.headlineMedium,
-        ),
-      ),
-    );
-  }
-}
-
-class PageFirst extends StatefulWidget {
-  const PageFirst({super.key});
-
-  @override
-  State<PageFirst> createState() => _PageFirstState();
-}
-
-class _PageFirstState extends State<PageFirst> {
-  @override
-  void initState() {
-    print('khansh->PageFirst->initState');
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    print('khansh->PageFirst->didChangeDependencies');
-    super.didChangeDependencies();
-  }
-
-  @override
-  void didUpdateWidget(covariant PageFirst oldWidget) {
-    print('khansh->PageFirst->didUpdateWidget');
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void deactivate() {
-    print('khansh->PageFirst->deactivate');
-    super.deactivate();
-  }
-
-  @override
-  void dispose() {
-    print('khansh->PageFirst->dispose');
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print('khansh->PageFirst->build');
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Page First'),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Page First',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class PageSecond extends StatefulWidget {
-  const PageSecond({super.key});
-
-  @override
-  State<PageSecond> createState() => _PageSecondState();
-}
-
-class _PageSecondState extends State<PageSecond> {
-  @override
-  void initState() {
-    print('khansh->PageSecond->initState');
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    print('khansh->PageSecond->didChangeDependencies');
-    super.didChangeDependencies();
-  }
-
-  @override
-  void didUpdateWidget(covariant PageSecond oldWidget) {
-    print('khansh->PageSecond->didUpdateWidget');
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void deactivate() {
-    print('khansh->PageSecond->deactivate');
-    super.deactivate();
-  }
-
-  @override
-  void dispose() {
-    print('khansh->PageSecond->dispose');
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print('khansh->PageSecond->build');
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Page Second'),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Page Second',
-            ),
-          ],
         ),
       ),
     );
